@@ -28,3 +28,25 @@ const getVideoSources = async () => {
 
   videoOptMenu.popup();
 }
+
+// Muda a tela do vídeo para gravar
+const selectSrc = async src => {
+  btnVideoSelect.innerText = src.name;
+
+  const constraints = {
+    audio : false,
+    video : {
+      mandatory : {
+        chromeMediaSource : 'desktop',
+        chromeMediaSourceId : src.id
+      }
+    }
+  };
+
+  // Criar uma stream
+  const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+  // Preview a tela no elemento <video>
+  videoElement.srcObject = stream;
+  videoElement.play();
+}
