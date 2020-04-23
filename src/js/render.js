@@ -1,15 +1,16 @@
-// Botões
-const videoElement = document.querySelector('video');
-const btnStart = document.querySelector('.js-btn-start');
-const btnStop = document.querySelector('.js-btn-stop');
-const btnVideoSelect = document.querySelector('.js-btn-video-select');
+const { desktopCapturer, remote } = require('electron');
+
+const { writeFile } = require('fs'); // filesystem
+
+const { dialog, Menu } = remote;
 
 let mediaRecorder; // Instância do MediaRecorder pra gravar o vídeo
 const recordedChunks = [];
 
-btnVideoSelect.addEventListener('click', () => {
-  getVideoSources();
-});
+// Botões
+const btnStart = document.querySelector('.js-btn-start');
+const btnStop = document.querySelector('.js-btn-stop');
+const btnVideoSelect = document.querySelector('.js-btn-video-select');
 
 btnStart.addEventListener('click', () => {
   mediaRecorder.start();
@@ -23,11 +24,14 @@ btnStop.addEventListener('click', () => {
   btnStart.innerText = 'Start';
 });
 
-const { desktopCapturer, remote } = require('electron');
-const { Menu } = remote;
+const videoElement = document.querySelector('video');
+
+btnVideoSelect.addEventListener('click', () => {
+  getVideoSources();
+});
 
 // Pega as telas disponíveis
-const getVideoSources = async () => {
+async function getVideoSources(){
   const inputSrcs = await desktopCapturer.getSources({
     types : ['window', 'screen']
   });
@@ -44,10 +48,8 @@ const getVideoSources = async () => {
   videoOptMenu.popup();
 }
 
-
-
 // Muda a tela do vídeo para gravar
-const selectSrc = async src => {
+async function selectSrc(src) {
   btnVideoSelect.innerText = src.name;
 
   const constraints = {
@@ -76,16 +78,12 @@ const selectSrc = async src => {
   mediaRecorder.onstop = handleStop;
 }
 
-const handleDataAvailable = el => {
-  recordedChunks.push(e.data);
+function handleDataAvailable(el){
+  recordedChunks.push(el.data);
 }
 
-const { dialog } = remote;
-
-const { writeFile } = require('fs'); // filesystem
-
 // Salvar o arquivo do vídeo quando parar de gravar
-const handleStop = async el => {
+async function handleStop(el) {
   const blob = new Blob(recordedChunks, {
     type : 'video/webm; codecs=vp9'
   });
@@ -94,7 +92,7 @@ const handleStop = async el => {
 
   const { filePath } = await dialog.showSaveDialog({
     buttonLabel : 'Salvar vídeo',
-    defaultPath : `vid-${Date.now()}.webm`
+    defaultPath : `VID-${Date.now()}.webm`
   });
 
   if(filePath)
