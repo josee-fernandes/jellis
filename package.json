@@ -1,8 +1,8 @@
 {
   "name": "my-app",
-  "productName": "Recorder",
+  "productName": "my-app",
   "version": "1.0.0",
-  "description": "Gravador de tela simples",
+  "description": "Gravador de tela",
   "main": "src/js/index.js",
   "scripts": {
     "start": "electron-forge start",
@@ -45,16 +45,15 @@
     }
   },
   "dependencies": {
-    "electron-forge": "^5.2.4",
     "electron-squirrel-startup": "^1.0.0"
   },
   "devDependencies": {
-    "electron-prebuilt-compile": "8.2.0",
-    "@electron-forge/cli": "6.0.0-beta.50",
-    "@electron-forge/maker-deb": "6.0.0-beta.50",
-    "@electron-forge/maker-rpm": "6.0.0-beta.50",
-    "@electron-forge/maker-squirrel": "6.0.0-beta.50",
-    "@electron-forge/maker-zip": "6.0.0-beta.50",
-    "electron": "8.2.3"
+    "@electron-forge/cli": "^6.0.0-beta.50",
+    "@electron-forge/maker-deb": "^6.0.0-beta.50",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.50",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.50",
+    "@electron-forge/maker-zip": "^6.0.0-beta.50",
+    "devtron": "^1.4.0",
+    "electron": "8.0.2"
   }
 }
