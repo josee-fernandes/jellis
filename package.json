@@ -1,8 +1,8 @@
 {
   "name": "my-app",
-  "productName": "my-app",
+  "productName": "Recorder",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Gravador de tela simples",
   "main": "src/js/index.js",
   "scripts": {
     "start": "electron-forge start",

@@ -7,16 +7,61 @@
 $colors : (
   bg : #262626,
   success: #3ed68f,
-  fail : #d63e71
+  fail : #d63e71,
+  primary: #8b4dff
 );
 
 @function cor($cor){
   @return map-get($colors, $cor);
 }
 
+@mixin btns{
+  border: none;
+  border-radius: 7px;
+  padding: 15px 40px;
+  cursor: pointer;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bolder;
+  letter-spacing: .1em;
+  transition: .3s ease;
+  margin: 10px;
+  
+
+  &:hover{
+    transform: scale(1.15);
+  }
+
+  &:active{
+    transform: scale(1);
+  }
+
+  &:focus{
+    outline: none;
+  }
+}
+
+@mixin selection($true){
+  @if($true == '1'){
+    &::selection{
+      background-color: cor(primary);
+    }
+  }@else{
+    &::selection{
+      background-color: transparent;
+    }
+  }
+}
+
 body{
+  width: 100vw;
+  min-height: 100vh;
   background-color: cor(bg);
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .app{
@@ -25,38 +70,35 @@ body{
   justify-content: center;
   align-items: center;
 
+  h1{
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    font-size: 1.3em;
+    pointer-events: none;
+
+    @include selection('1');
+  }
+
+  video{
+    width: 80vw;
+    min-height: 50vh;
+    background-color: darken($color: cor(bg), $amount: 20);
+    border-radius: 10px;
+    margin: 15px 0;
+    @include selection('0');
+  }
+
   .btns{
     button{
-      border: none;
-      border-radius: 7px;
-      padding: 15px 40px;
-      cursor: pointer;
-      color: white;
-      text-transform: uppercase;
-      font-weight: bolder;
-      letter-spacing: .1em;
-      transition: .3s ease;
-      margin: 10px;
-      
-
-      &:hover{
-        transform: scale(1.15);
-      }
-
-      &:active{
-        transform: scale(1);
-      }
-
-      &:focus{
-        outline: none;
-      }
+      @include btns;
+      @include selection('0');
     }
 
     .js-btn-start{
       background-color: cor(success);
 
       &:hover{
-        background-color: lighten(cor(success), $amount: 10);
+        background-color: lighten(cor(success), $amount: 7);
       }
     }
 
@@ -64,8 +106,19 @@ body{
       background-color: cor(fail);
 
       &:hover{
-        background-color: lighten(cor(fail), $amount: 10);
+        background-color: lighten(cor(fail), $amount: 7);
       }
     }
+  }
+
+  .js-btn-video-select{
+    @include btns;
+    
+    background-color: cor(primary);
+
+    &:hover{
+      background-color: lighten(cor(primary), $amount: 3);
+    }
+    @include selection('0');
   }
 }

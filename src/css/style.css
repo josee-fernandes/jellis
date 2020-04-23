@@ -5,8 +5,23 @@
 }
 
 body {
+  width: 100vw;
+  min-height: 100vh;
   background-color: #262626;
   color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .app {
@@ -23,6 +38,37 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.app h1 {
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-size: 1.3em;
+  pointer-events: none;
+}
+
+.app h1::-moz-selection {
+  background-color: #8b4dff;
+}
+
+.app h1::selection {
+  background-color: #8b4dff;
+}
+
+.app video {
+  width: 80vw;
+  min-height: 50vh;
+  background-color: black;
+  border-radius: 10px;
+  margin: 15px 0;
+}
+
+.app video::-moz-selection {
+  background-color: transparent;
+}
+
+.app video::selection {
+  background-color: transparent;
 }
 
 .app .btns button {
@@ -53,12 +99,20 @@ body {
   outline: none;
 }
 
+.app .btns button::-moz-selection {
+  background-color: transparent;
+}
+
+.app .btns button::selection {
+  background-color: transparent;
+}
+
 .app .btns .js-btn-start {
   background-color: #3ed68f;
 }
 
 .app .btns .js-btn-start:hover {
-  background-color: #68dfa7;
+  background-color: #5bdca0;
 }
 
 .app .btns .js-btn-stop {
@@ -66,6 +120,47 @@ body {
 }
 
 .app .btns .js-btn-stop:hover {
-  background-color: #df6890;
+  background-color: #dc5b87;
+}
+
+.app .js-btn-video-select {
+  border: none;
+  border-radius: 7px;
+  padding: 15px 40px;
+  cursor: pointer;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bolder;
+  letter-spacing: .1em;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  margin: 10px;
+  background-color: #8b4dff;
+}
+
+.app .js-btn-video-select:hover {
+  -webkit-transform: scale(1.15);
+          transform: scale(1.15);
+}
+
+.app .js-btn-video-select:active {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+
+.app .js-btn-video-select:focus {
+  outline: none;
+}
+
+.app .js-btn-video-select:hover {
+  background-color: #955cff;
+}
+
+.app .js-btn-video-select::-moz-selection {
+  background-color: transparent;
+}
+
+.app .js-btn-video-select::selection {
+  background-color: transparent;
 }
 /*# sourceMappingURL=style.css.map */
