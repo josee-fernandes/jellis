@@ -21,6 +21,7 @@ $colors : (
 }
 
 @mixin btns{
+  position: relative;
   border: none;
   border-radius: 7px;
   padding: 15px 40px;
@@ -72,13 +73,27 @@ $colors : (
   }
   
   nav{
+    position: relative;
     width: 100vw;
     min-height: 7vh;
     display: flex;
     justify-content: center;
     align-items: center;
     -webkit-app-region: drag;
-  
+    animation: nav-start 1.5s cubic-bezier(.09,.59,.46,.96);
+
+    @keyframes nav-start {
+      from{
+        top: -200px;
+        filter: opacity(0);
+      }
+
+      to{
+        top: 0;
+        filter: opacity(1);
+      }
+    }
+
     h1{
       font-family: 'Lily Script One', 'Bowlby One SC';
       font-size: 1.7em;
@@ -165,6 +180,24 @@ $colors : (
           pointer-events: none;
           transition: all .2s ease;
           @include selection('1');
+          animation: bem-vindo-start 3s cubic-bezier(.09,.59,.46,.96);
+        }
+
+        @keyframes bem-vindo-start {
+          0%{
+            transform: scale(0);
+            filter: opacity(0);
+          }
+
+          30%{
+            transform: scale(0);
+            filter: opacity(0);
+          }
+
+          100%{
+            transform: scale(1);
+            filter: opacity(1);
+          }
         }
 
         .bem-vindo-posicao{
@@ -218,13 +251,27 @@ $colors : (
     
       .js-btn-video-select{
         @include btns;
-        
         background-color: cor(primary);
-    
+        animation: btn-vs-start 4s cubic-bezier(.09,.59,.46,.96);
+
         &:hover{
           background-color: lighten(cor(primary), $amount: 3);
         }
         @include selection('0');
+      }
+
+      @keyframes btn-vs-start {
+        0%{
+          bottom: -300px;
+        }
+
+        30%{
+          bottom: -300px;
+        }
+
+        100%{
+          bottom: 0;
+        }
       }
 
       .warn{

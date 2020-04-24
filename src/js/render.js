@@ -76,41 +76,45 @@ async function selectSrc(src) {
     audio : false,
     video : {
       mandatory : {
-        chromeMediaSource : 'desktop',
-        chromeMediaSourceId : src.id
+        chromeMediaSource : 'desktop'
       }
     }
   };
 
   // Criar uma stream
-  const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    
+    // Preview a tela no elemento <video>
+    videoElement.srcObject = stream;
+    videoElement.play();
 
-  // Preview a tela no elemento <video>
-  videoElement.srcObject = stream;
-  videoElement.play();
+    escolhida = true;
 
-  escolhida = true;
+    janela = src.name;
 
-  janela = src.name;
+    btnStart.classList.remove('btn-escala');
+    btnStop.classList.remove('btn-escala');
 
-  btnStart.classList.remove('btn-escala');
-  btnStop.classList.remove('btn-escala');
+    bemVindo.classList.add('bem-vindo-posicao');
+    bemVindo.innerText = `Pré-visualizando "${janela}"`
 
-  bemVindo.classList.add('bem-vindo-posicao');
-  bemVindo.innerText = `Pré-visualizando "${janela}"`
+    btnVideoSelect.innerText = 'Trocar janela';
+    btnVideoSelect.classList.add('warn');
 
-  btnVideoSelect.innerText = 'Trocar janela';
-  btnVideoSelect.classList.add('warn');
+    elementsContainer.classList.add('app-changed');
 
-  elementsContainer.classList.add('app-changed');
+    // Crirar o Media Recorder
+    const options = { mimeType : 'video/webm; codecs=vp9' };
+    mediaRecorder = new MediaRecorder(stream, options);
 
-  // Crirar o Media Recorder
-  const options = { mimeType : 'video/webm; codecs=vp9' };
-  mediaRecorder = new MediaRecorder(stream, options);
-
-  // Registrar manipuladores de evento
-  mediaRecorder.ondataavailable = handleDataAvailable;
-  mediaRecorder.onstop = handleStop;
+    // Registrar manipuladores de evento
+    mediaRecorder.ondataavailable = handleDataAvailable;
+    mediaRecorder.onstop = handleStop;
+  }catch (error){
+    console.warn(`Erro "${error.name}" : ${error.message}`);
+  }
+  
 }
 
 function handleDataAvailable(el){

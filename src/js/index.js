@@ -20,7 +20,8 @@ const createWindow = () => {
     autoHideMenuBar: true,
     center: true,
     backgroundColor: '#201b2b',
-    frame: false
+    frame: false,
+    icon: path.join(__dirname, '../img/icons/png/64x64.png')
   });
 
   // and load the index.html of the app.

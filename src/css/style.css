@@ -29,6 +29,7 @@
     overflow: hidden;
   }
   nav {
+    position: relative;
     width: 100vw;
     min-height: 7vh;
     display: -webkit-box;
@@ -41,6 +42,32 @@
         -ms-flex-align: center;
             align-items: center;
     -webkit-app-region: drag;
+    -webkit-animation: nav-start 1.5s cubic-bezier(0.09, 0.59, 0.46, 0.96);
+            animation: nav-start 1.5s cubic-bezier(0.09, 0.59, 0.46, 0.96);
+  }
+  @-webkit-keyframes nav-start {
+    from {
+      top: -200px;
+      -webkit-filter: opacity(0);
+              filter: opacity(0);
+    }
+    to {
+      top: 0;
+      -webkit-filter: opacity(1);
+              filter: opacity(1);
+    }
+  }
+  @keyframes nav-start {
+    from {
+      top: -200px;
+      -webkit-filter: opacity(0);
+              filter: opacity(0);
+    }
+    to {
+      top: 0;
+      -webkit-filter: opacity(1);
+              filter: opacity(1);
+    }
   }
   nav h1 {
     font-family: 'Lily Script One', 'Bowlby One SC';
@@ -152,12 +179,54 @@
     pointer-events: none;
     -webkit-transition: all .2s ease;
     transition: all .2s ease;
+    -webkit-animation: bem-vindo-start 3s cubic-bezier(0.09, 0.59, 0.46, 0.96);
+            animation: bem-vindo-start 3s cubic-bezier(0.09, 0.59, 0.46, 0.96);
   }
   .container .app .player .bem-vindo::-moz-selection {
     background-color: #8b4dff;
   }
   .container .app .player .bem-vindo::selection {
     background-color: #8b4dff;
+  }
+  @-webkit-keyframes bem-vindo-start {
+    0% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      -webkit-filter: opacity(0);
+              filter: opacity(0);
+    }
+    30% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      -webkit-filter: opacity(0);
+              filter: opacity(0);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-filter: opacity(1);
+              filter: opacity(1);
+    }
+  }
+  @keyframes bem-vindo-start {
+    0% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      -webkit-filter: opacity(0);
+              filter: opacity(0);
+    }
+    30% {
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      -webkit-filter: opacity(0);
+              filter: opacity(0);
+    }
+    100% {
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-filter: opacity(1);
+              filter: opacity(1);
+    }
   }
   .container .app .player .bem-vindo-posicao {
     position: relative !important;
@@ -179,6 +248,7 @@
     background-color: transparent;
   }
   .container .app .btns button {
+    position: relative;
     border: none;
     border-radius: 7px;
     padding: 15px 40px;
@@ -230,6 +300,7 @@
     pointer-events: none;
   }
   .container .app .js-btn-video-select {
+    position: relative;
     border: none;
     border-radius: 7px;
     padding: 15px 40px;
@@ -242,6 +313,8 @@
     transition: .3s ease;
     margin: 5px;
     background-color: #8b4dff;
+    -webkit-animation: btn-vs-start 4s cubic-bezier(0.09, 0.59, 0.46, 0.96);
+            animation: btn-vs-start 4s cubic-bezier(0.09, 0.59, 0.46, 0.96);
   }
   .container .app .js-btn-video-select:hover {
     -webkit-transform: scale(1.15);
@@ -262,6 +335,28 @@
   }
   .container .app .js-btn-video-select::selection {
     background-color: transparent;
+  }
+  @-webkit-keyframes btn-vs-start {
+    0% {
+      bottom: -300px;
+    }
+    30% {
+      bottom: -300px;
+    }
+    100% {
+      bottom: 0;
+    }
+  }
+  @keyframes btn-vs-start {
+    0% {
+      bottom: -300px;
+    }
+    30% {
+      bottom: -300px;
+    }
+    100% {
+      bottom: 0;
+    }
   }
   .container .app .warn {
     background-color: #fdc752 !important;
