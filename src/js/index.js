@@ -50,6 +50,7 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
+    console.log(app.getFileIcon(path.join(__dirname, '../img/icons/ico/Icon.ico')));
   }
 });
 

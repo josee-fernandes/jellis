@@ -82,10 +82,26 @@ async function selectSrc(src) {
     }
   };
 
+  const constraintsOut = {
+    audio : {
+      mandatory : {
+        chromeMediaSource : 'desktop',
+        chromeMediaSourceId : src.id
+      }
+    },
+    video : {
+      mandatory : {
+        chromeMediaSource : 'desktop',
+        chromeMediaSourceId : src.id
+      }
+    }
+  };
+
   // Criar uma stream
   try{
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    
+    const videoOut = await navigator.mediaDevices.getUserMedia(constraintsOut);
+
     // Preview a tela no elemento <video>
     videoElement.srcObject = stream;
     videoElement.play();
@@ -106,8 +122,8 @@ async function selectSrc(src) {
     elementsContainer.classList.add('app-changed');
 
     // Crirar o Media Recorder
-    const options = { mimeType : 'video/webm; codecs=vp9' };
-    mediaRecorder = new MediaRecorder(stream, options);
+    const options = { mimeType : 'video/webm; codecs=h264,vp9,opus' };
+    mediaRecorder = new MediaRecorder(videoOut, options);
 
     // Registrar manipuladores de evento
     mediaRecorder.ondataavailable = handleDataAvailable;
@@ -125,7 +141,7 @@ function handleDataAvailable(el){
 // Salvar o arquivo do vídeo quando parar de gravar
 async function handleStop(el) {
   const blob = new Blob(recordedChunks, {
-    type : 'video/webm; codecs=vp9'
+    type : 'video/webm; codecs=h264,vp9,opus'
   });
 
   const buffer = Buffer.from(await blob.arrayBuffer());
