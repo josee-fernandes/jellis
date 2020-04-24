@@ -76,7 +76,8 @@ async function selectSrc(src) {
     audio : false,
     video : {
       mandatory : {
-        chromeMediaSource : 'desktop'
+        chromeMediaSource : 'desktop',
+        chromeMediaSourceId : src.id
       }
     }
   };
@@ -112,7 +113,7 @@ async function selectSrc(src) {
     mediaRecorder.ondataavailable = handleDataAvailable;
     mediaRecorder.onstop = handleStop;
   }catch (error){
-    console.warn(`Erro "${error.name}" : ${error.message}`);
+    console.error(`Erro "${error.name}" : ${error.message}`);
   }
   
 }

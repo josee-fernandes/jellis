@@ -1,9 +1,9 @@
 {
-  "name": "my-app",
-  "productName": "my-app",
-  "version": "1.0.0",
-  "description": "Gravador de tela",
-  "main": "src/js/index.js",
+  "name": "jellis",
+  "productName": "Jellis",
+  "version": "1.0.1",
+  "description": "Jellis é um gravador de tela simples. Bom para quem não quer nada complexo e não ter trabalho.",
+  "main": "./src/js/index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -24,22 +24,11 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "my_app"
+            "name": "Jellis",
+            "iconUrl" : "file:///C:\\Users\\jose-\\Documents\\#\\Electron\\my-app\\src\\img\\icons\\Icon.ico",
+            "icon" : "./src/img/icons/Icon.ico",
+            "setupIcon": "./src/img/icons/ico/Icon.ico"
           }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
         }
       ]
     }

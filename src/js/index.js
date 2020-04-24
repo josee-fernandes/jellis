@@ -16,12 +16,12 @@ const createWindow = () => {
     },
     minWidth: 600,
     minHeight: 525,
-    title: 'Recorder',
+    title: 'Jellis - Gravador de tela',
     autoHideMenuBar: true,
     center: true,
     backgroundColor: '#201b2b',
     frame: false,
-    icon: path.join(__dirname, '../img/icons/png/64x64.png')
+    icon: path.join(__dirname, '../img/icons/ico/Icon.ico')
   });
 
   // and load the index.html of the app.
