@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Recorder</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/render.js" defer></script>
-    <script src="./js/inde.js" defer></script>
-  </head>
-  <body>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jellis - Screen Recorder</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/render.js" defer></script>
+  <script src="./js/index.js" defer></script>
+  <script src="./js/nav.js" defer></script>
+</head>
+<body>
+  <nav>
+    <h1>Jellis</h1>
+    <ul>
+      <li class="js-minimizar"></li>
+      <li class="js-maximizar"></li>
+      <li class="js-fechar"></li>
+    </ul>
+  </nav>
+  <div class="container">
     <div class="app">
-      <h1>⚡ Gravador de Tela com Electron ⚡</h1>
-      <video></video>
-      <div class="btns">
-        <button class="js-btn-start">Start</button>
-        <button class="js-btn-stop">Stop</button>
+      <div class="player">
+        <h1 class="bem-vindo">Para gravar, comece escolhendo uma janela!🤗</h1>
+        <video></video>
       </div>
-      <button class="js-btn-video-select">Escolha uma tela</button>
+      <div class="btns">
+        <button class="js-btn-start btn-escala">Gravar</button>
+        <button class="js-btn-stop btn-escala btn-desabilitar">Parar</button>
+      </div>
+      <button class="js-btn-video-select">Escolher janela</button>
     </div>
-  </body>
+  </div>
+</body>
 </html>

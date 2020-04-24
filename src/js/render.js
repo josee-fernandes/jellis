@@ -7,6 +7,12 @@ const { dialog, Menu } = remote;
 let mediaRecorder; // Instância do MediaRecorder pra gravar o vídeo
 const recordedChunks = [];
 
+let escolhida = false;
+
+let janela;
+
+const elementsContainer = document.querySelector('.app');
+
 // Botões
 const btnStart = document.querySelector('.js-btn-start');
 const btnStop = document.querySelector('.js-btn-stop');
@@ -14,17 +20,32 @@ const btnVideoSelect = document.querySelector('.js-btn-video-select');
 
 btnStart.addEventListener('click', () => {
   mediaRecorder.start();
-  // btnStart.classList.add('');
-  btnStart.innerText = 'Recording';
+  btnStart.classList.add('btn-desabilitar');
+  btnStop.classList.remove('btn-desabilitar');
+  
+  bemVindo.innerText = `Gravando "${janela}"`;
+
+  if(escolhida){
+    btnVideoSelect.classList.remove('warn');
+    btnVideoSelect.classList.add('btn-desabilitar');
+  }
 });
 
 btnStop.addEventListener('click', () => {
   mediaRecorder.stop();
-  // btnStart.classList.remove('')
-  btnStart.innerText = 'Start';
+  btnStop.classList.add('btn-desabilitar');
+  btnStart.classList.remove('btn-desabilitar');
+
+  bemVindo.innerText = `Pré-visualizando "${janela}"`;
+
+  if(escolhida){
+    btnVideoSelect.classList.remove('btn-desabilitar');
+    btnVideoSelect.classList.add('warn');
+  }
 });
 
 const videoElement = document.querySelector('video');
+const bemVindo = document.querySelector('.bem-vindo');
 
 btnVideoSelect.addEventListener('click', () => {
   getVideoSources();
@@ -46,12 +67,11 @@ async function getVideoSources(){
   );
 
   videoOptMenu.popup();
+  
 }
 
 // Muda a tela do vídeo para gravar
 async function selectSrc(src) {
-  btnVideoSelect.innerText = src.name;
-
   const constraints = {
     audio : false,
     video : {
@@ -68,6 +88,21 @@ async function selectSrc(src) {
   // Preview a tela no elemento <video>
   videoElement.srcObject = stream;
   videoElement.play();
+
+  escolhida = true;
+
+  janela = src.name;
+
+  btnStart.classList.remove('btn-escala');
+  btnStop.classList.remove('btn-escala');
+
+  bemVindo.classList.add('bem-vindo-posicao');
+  bemVindo.innerText = `Pré-visualizando "${janela}"`
+
+  btnVideoSelect.innerText = 'Trocar janela';
+  btnVideoSelect.classList.add('warn');
+
+  elementsContainer.classList.add('app-changed');
 
   // Crirar o Media Recorder
   const options = { mimeType : 'video/webm; codecs=vp9' };
@@ -98,3 +133,15 @@ async function handleStop(el) {
   if(filePath)
     writeFile(filePath, buffer, () => console.log('Vídeo salvo com sucesso!'));
 }
+
+setInterval(() => {
+  if(escolhida){
+    if(videoElement.srcObject == null){
+      btnVideoSelect.classList.remove('warn');
+      escolhida = false;
+      bemVindo.classList.remove('bem-vindo-posicao');
+      bemVindo.innerText = 'Para gravar, comece escolhendo uma janela!🤗';
+      elementsContainer.classList.remove('app-changed');
+    }
+  }
+}, 1000);

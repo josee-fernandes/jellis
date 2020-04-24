@@ -14,17 +14,13 @@ const createWindow = () => {
     webPreferences:{
       nodeIntegration: true,
     },
-    minWidth: 800,
-    minHeight: 800,
+    minWidth: 600,
+    minHeight: 525,
     title: 'Recorder',
     autoHideMenuBar: true,
     center: true,
-    backgroundColor: '#262626',
-    titleBarStyle: 'hidden',
-    trafficLightPosition: {
-      x : 12,
-      y : 12
-    }
+    backgroundColor: '#201b2b',
+    frame: false
   });
 
   // and load the index.html of the app.

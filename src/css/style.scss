@@ -1,13 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap');
+
 *{
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 $colors : (
-  bg : #262626,
+  bg : #201b2b,
   success: #3ed68f,
   fail : #d63e71,
+  warning: #fdc752,
   primary: #8b4dff
 );
 
@@ -25,7 +30,7 @@ $colors : (
   font-weight: bolder;
   letter-spacing: .1em;
   transition: .3s ease;
-  margin: 10px;
+  margin: 5px;
   
 
   &:hover{
@@ -53,72 +58,239 @@ $colors : (
   }
 }
 
-body{
-  width: 100vw;
-  min-height: 100vh;
-  background-color: cor(bg);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@media (min-width: 600px){
+  body{
+    width: 100vw;
+    min-height: 100vh;
+    background-color: darken(cor(bg), $amount: 3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  nav{
+    width: 100vw;
+    min-height: 7vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-app-region: drag;
+  
+    h1{
+      font-family: 'Lily Script One', 'Bowlby One SC';
+      font-size: 1.7em;
+      position: absolute;
+      left: 5%;
+    }
+  
+    ul{
+      position: absolute;
+      list-style: none;
+      display: flex;
+      right: 5%;
+  
+      li{
+        margin: 10px 5px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        transition: all .3s ease;
+        cursor: pointer;
+        -webkit-app-region: no-drag;
+  
+        &:nth-child(1){
+          background-color: rgb(255, 234, 46);
+          
+          &:hover{
+            background-color: lighten(rgb(255, 234, 46), $amount: 12.5);
+            transform: scale(1.2);
+          }
+        }
+  
+        &:nth-child(2){
+          background-color: rgb(45, 243, 111);
+  
+          &:hover{
+            background-color: lighten(rgb(45, 243, 111), $amount: 12.5);
+            transform: scale(1.2);
+          }
+        }
+  
+        &:nth-child(3){
+          background-color: rgb(255, 35, 90);
+          
+          &:hover{
+            background-color: lighten(rgb(255, 35, 90), $amount: 12.5);
+            transform: scale(1.2);
+          }
+        }
+      }
+    }
+  }
+  
+  .container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    .app{
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 11vh 6vw;
+      background-color: cor(bg);
+      border-radius: 10px;
+      transition: all .2s ease;
+
+      .player{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .bem-vindo{
+          width: 50vw;
+          position: absolute;
+          text-align: center;
+          letter-spacing: .1em;
+          font-size: 1em;
+          pointer-events: none;
+          transition: all .2s ease;
+          @include selection('1');
+        }
+
+        .bem-vindo-posicao{
+          position: relative !important;
+        }
+  
+        video{
+          width: 80vw;
+          min-height: 50vh;
+          max-height: 50vh;
+          background-color: darken(cor(bg), $amount: 5);
+          border-radius: 10px;
+          margin: 10px 0;
+          transition: all .3s ease;
+          @include selection('0');
+        }
+      }
+    
+      .btns{
+        button{
+          @include btns;
+          @include selection('0');
+        }
+    
+        .js-btn-start{
+          background-color: cor(success);
+    
+          &:hover{
+            background-color: lighten(cor(success), $amount: 7);
+          }
+        }
+    
+        .js-btn-stop{
+          background-color: cor(fail);
+    
+          &:hover{
+            background-color: lighten(cor(fail), $amount: 7);
+          }
+        }
+
+        .btn-escala{
+          transform: scale(0) !important;
+        }
+
+        .btn-desabilitar{
+          color: cor(bg);
+          background-color: darken(cor(bg), $amount: 5);
+          pointer-events: none;
+        }
+      }
+    
+      .js-btn-video-select{
+        @include btns;
+        
+        background-color: cor(primary);
+    
+        &:hover{
+          background-color: lighten(cor(primary), $amount: 3);
+        }
+        @include selection('0');
+      }
+
+      .warn{
+        background-color: cor(warning) !important;
+
+        &:hover{
+          background-color: lighten(cor(warning), $amount: 3) !important;
+        }
+      }
+
+      .btn-desabilitar{
+        color: cor(bg);
+        background-color: darken(cor(bg), $amount: 5);
+        pointer-events: none;
+      }
+    }
+
+    .app-changed{
+      padding: 4vh 4vw !important;
+      padding-bottom: 9vh !important;
+    }
+  }
 }
 
-.app{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  h1{
-    text-transform: uppercase;
-    letter-spacing: .2em;
-    font-size: 1.3em;
-    pointer-events: none;
-
-    @include selection('1');
-  }
-
-  video{
-    width: 80vw;
-    min-height: 50vh;
-    background-color: darken($color: cor(bg), $amount: 20);
-    border-radius: 10px;
-    margin: 15px 0;
-    @include selection('0');
-  }
-
-  .btns{
-    button{
-      @include btns;
-      @include selection('0');
+@media (min-width: 800px){
+  .container{
+    .app-changed{
+      padding-bottom: 13vh !important;
     }
+  }
+}
 
-    .js-btn-start{
-      background-color: cor(success);
+@media (min-width: 960px){
+  .container{
+    .app{
+      padding: 10vh 10vw;
 
-      &:hover{
-        background-color: lighten(cor(success), $amount: 7);
+      .player{
+        video{
+          width: 60vw;
+        }
       }
     }
-
-    .js-btn-stop{
-      background-color: cor(fail);
-
-      &:hover{
-        background-color: lighten(cor(fail), $amount: 7);
-      }
-    }
-  }
-
-  .js-btn-video-select{
-    @include btns;
     
-    background-color: cor(primary);
-
-    &:hover{
-      background-color: lighten(cor(primary), $amount: 3);
+    .app-changed{
+      padding: 9vh 10vw !important;
+      padding-bottom: 14vh !important;
     }
-    @include selection('0');
+  }
+}
+
+@media (min-width: 1280px){
+  .container{
+    .app{
+      padding: 15vh 7vw !important;
+
+      .player{
+        video{
+          width: 55vw;
+          min-height: 50vh;
+        }
+      }
+    }
+
+    .app-changed{
+      padding: 13vh 7vw !important;
+    }
   }
 }
