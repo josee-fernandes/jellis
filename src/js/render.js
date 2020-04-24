@@ -85,8 +85,7 @@ async function selectSrc(src) {
   const constraintsOut = {
     audio : {
       mandatory : {
-        chromeMediaSource : 'desktop',
-        chromeMediaSourceId : src.id
+        chromeMediaSource : 'desktop'
       }
     },
     video : {
