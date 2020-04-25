@@ -109,6 +109,7 @@ $colors : (
     align-items: center;
     -webkit-app-region: drag;
     animation: nav-start 1.5s cubic-bezier(.09,.59,.46,.96);
+    top: 2px;
 
     @keyframes nav-start {
       from{
@@ -117,7 +118,7 @@ $colors : (
       }
 
       to{
-        top: 0;
+        top: 2px;
         filter: opacity(1);
       }
     }

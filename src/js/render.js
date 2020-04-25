@@ -2,7 +2,51 @@ new Audio('./resrc/sfx/sfx_start.wav').play();
 
 const { desktopCapturer, remote } = require('electron');
 
-const { writeFile } = require('fs'); // filesystem
+const { writeFile, readFile } = require('fs'); // filesystem
+
+const fileName = 'user_config.txt';
+
+let user_config = {
+  som : true,
+  formato : 'mp4',
+  minimizar : false
+}
+
+const btnAtualizar = document.querySelector('.js-atualizar');
+
+const configPadrao = () => {
+  writeFile(`./src/data/${fileName}`, JSON.stringify({user_config}), (error) => {
+    if(error){
+      console.error(`Erro ao tentar criar arquivo ${fileName}: ${error}`);
+      return;
+    }
+  
+    console.log(`${fileName} criado.`);
+  });
+}
+
+readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
+  if(error+''.includes('no such file or directory')){
+    configPadrao();
+    return;
+  }
+
+  let last_config = JSON.parse(data);
+  user_config = last_config;
+});
+
+btnAtualizar.addEventListener('click', () => {
+  readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
+    if(!error){
+      let last_config = JSON.parse(data);
+      user_config = last_config;
+      console.log(user_config);
+      return;
+    }
+  
+    console.error(error);
+  });  
+});
 
 const { dialog, Menu } = remote;
 
@@ -20,8 +64,8 @@ const logo = document.querySelector('nav h1');
 
 // Efeitos sonoros
 const sfxBtn = new Audio('./resrc/sfx/sfx_btn.wav');
-const sfxRecord = new Audio('./resrc/sfx/sfx_record.wav');
-const sfxStopRecord = new Audio('./resrc/sfx/sfx_stop_record.wav');
+// const sfxRecord = new Audio('./resrc/sfx/sfx_record.wav');
+// const sfxStopRecord = new Audio('./resrc/sfx/sfx_stop_record.wav');
 
 // Botões
 const btnStart = document.querySelector('.js-btn-start');
@@ -29,6 +73,7 @@ const btnStop = document.querySelector('.js-btn-stop');
 const btnVideoSelect = document.querySelector('.js-btn-video-select');
 
 btnStart.addEventListener('click', () => {
+  recordedChunks.splice(0,recordedChunks.length);
   mediaRecorder.start();
   btnStart.classList.add('btn-desabilitar');
   btnStop.classList.remove('btn-desabilitar');
@@ -42,7 +87,10 @@ btnStart.addEventListener('click', () => {
     btnVideoSelect.classList.add('btn-desabilitar');
   }
 
-  sfxRecord.play();
+  // sfxRecord.play();
+
+  if(user_config.minimizar)
+    win.minimize();
 });
 
 btnStop.addEventListener('click', () => {
@@ -59,9 +107,9 @@ btnStop.addEventListener('click', () => {
     btnVideoSelect.classList.add('warn');
   }
 
-  setTimeout(() => {
-    sfxStopRecord.play();
-  }, 500);
+  // setTimeout(() => {
+  //   sfxStopRecord.play();
+  // }, 500);
 });
 
 const videoElement = document.querySelector('video');
@@ -103,24 +151,38 @@ async function selectSrc(src) {
     }
   };
 
-  const constraintsOut = {
-    audio : {
-      mandatory : {
-        chromeMediaSource : 'desktop'
+  let constraintsOut;
+
+  if(user_config.som === true){
+    constraintsOut = {
+      audio : {
+        mandatory : {
+          chromeMediaSource : 'desktop'
+        }
+      },
+      video : {
+        mandatory : {
+          chromeMediaSource : 'desktop',
+          chromeMediaSourceId : src.id
+        }
       }
-    },
-    video : {
-      mandatory : {
-        chromeMediaSource : 'desktop',
-        chromeMediaSourceId : src.id
+    };
+  }else{
+    constraintsOut = {
+      audio : false,
+      video : {
+        mandatory : {
+          chromeMediaSource : 'desktop',
+          chromeMediaSourceId : src.id
+        }
       }
-    }
-  };
+    };
+  }
 
   // Criar uma stream
   try{
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    const videoOut = await navigator.mediaDevices.getUserMedia(constraintsOut);
+    const videoOut = await navigator.mediaDevices.getUserMedia(constraintsOut);  
 
     // Preview a tela no elemento <video>
     videoElement.srcObject = stream;
@@ -163,14 +225,34 @@ function handleDataAvailable(el){
 // Salvar o arquivo do vídeo quando parar de gravar
 async function handleStop(el) {
   const blob = new Blob(recordedChunks, {
-    type : 'video/webm; codecs=h264,vp9,opus'
+    type : 'video/webm; codecs=h264,vp9,opus' // ,vp9,opus
   });
 
   const buffer = Buffer.from(await blob.arrayBuffer());
 
+  let extensao;
+  switch(user_config.formato){
+    case 'mp4':
+      extensao = 'mp4';
+      console.log('mp4');
+      break;
+    case 'avi':
+      extensao = 'avi';
+      console.log('avi');
+      break;
+    case 'webm':
+      extensao = 'webm';
+      console.log('webm');
+      break;
+    default:
+      extensao = 'mp4'
+      console.log('mp4 2');
+      break;
+  }
+
   const { filePath } = await dialog.showSaveDialog({
     buttonLabel : 'Salvar vídeo',
-    defaultPath : `VID-${Date.now()}.webm`
+    defaultPath : `VID-${Date.now()}.${extensao}` // se for o codec=h264,vp9,opus usar .webm, se tiver usando só codec=h264, pode usar mp4, avi
   });
 
   if(filePath)

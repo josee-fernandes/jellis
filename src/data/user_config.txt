@@ -1,0 +1,1 @@
+{"som":true,"formato":"avi","minimizar":false}

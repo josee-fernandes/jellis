@@ -71,6 +71,7 @@
     -webkit-app-region: drag;
     -webkit-animation: nav-start 1.5s cubic-bezier(0.09, 0.59, 0.46, 0.96);
             animation: nav-start 1.5s cubic-bezier(0.09, 0.59, 0.46, 0.96);
+    top: 2px;
   }
   @-webkit-keyframes nav-start {
     from {
@@ -79,7 +80,7 @@
               filter: opacity(0);
     }
     to {
-      top: 0;
+      top: 2px;
       -webkit-filter: opacity(1);
               filter: opacity(1);
     }
@@ -91,7 +92,7 @@
               filter: opacity(0);
     }
     to {
-      top: 0;
+      top: 2px;
       -webkit-filter: opacity(1);
               filter: opacity(1);
     }
