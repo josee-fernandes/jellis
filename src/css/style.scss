@@ -2,6 +2,34 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap');
 
+@font-face {
+  font-family: 'Bowlby One SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Bowlby One SC Regular'), local('BowlbyOneSC-Regular'), url('../resrc/fonts/bowlbyonesc.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Nunito SemiBold'), local('Nunito-SemiBold'), url('../resrc/fonts/nunito.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lily Script One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lily Script One'), local('LilyScriptOne-Regular'), url('../resrc/fonts/lilyscriptone.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
 *{
   margin: 0;
   padding: 0;
@@ -99,6 +127,25 @@ $colors : (
       font-size: 1.7em;
       position: absolute;
       left: 5%;
+      transition: all .3s ease;
+    }
+    
+    .recording{
+      animation: record-blink 3s linear infinite !important;
+    }
+
+    @keyframes record-blink {
+      0%{
+        color: darken(cor(bg), $amount: 4);
+      }
+
+      50%{
+        color: cor(fail);
+      }
+
+      100%{
+        color: darken(cor(bg), $amount: 4);
+      }
     }
   
     ul{
@@ -202,7 +249,7 @@ $colors : (
 
         .bem-vindo-posicao{
           position: relative !important;
-        }
+        }    
   
         video{
           width: 80vw;

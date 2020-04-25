@@ -1,3 +1,5 @@
+new Audio('./resrc/sfx/sfx_start.wav').play();
+
 const { desktopCapturer, remote } = require('electron');
 
 const { writeFile } = require('fs'); // filesystem
@@ -13,6 +15,14 @@ let janela;
 
 const elementsContainer = document.querySelector('.app');
 
+// Logo
+const logo = document.querySelector('nav h1');
+
+// Efeitos sonoros
+const sfxBtn = new Audio('./resrc/sfx/sfx_btn.wav');
+const sfxRecord = new Audio('./resrc/sfx/sfx_record.wav');
+const sfxStopRecord = new Audio('./resrc/sfx/sfx_stop_record.wav');
+
 // Botões
 const btnStart = document.querySelector('.js-btn-start');
 const btnStop = document.querySelector('.js-btn-stop');
@@ -25,10 +35,14 @@ btnStart.addEventListener('click', () => {
   
   bemVindo.innerText = `Gravando "${janela}"`;
 
+  logo.classList.add('recording');
+
   if(escolhida){
     btnVideoSelect.classList.remove('warn');
     btnVideoSelect.classList.add('btn-desabilitar');
   }
+
+  sfxRecord.play();
 });
 
 btnStop.addEventListener('click', () => {
@@ -38,10 +52,16 @@ btnStop.addEventListener('click', () => {
 
   bemVindo.innerText = `Pré-visualizando "${janela}"`;
 
+  logo.classList.remove('recording');
+
   if(escolhida){
     btnVideoSelect.classList.remove('btn-desabilitar');
     btnVideoSelect.classList.add('warn');
   }
+
+  setTimeout(() => {
+    sfxStopRecord.play();
+  }, 500);
 });
 
 const videoElement = document.querySelector('video');
@@ -49,6 +69,7 @@ const bemVindo = document.querySelector('.bem-vindo');
 
 btnVideoSelect.addEventListener('click', () => {
   getVideoSources();
+  sfxBtn.play();
 });
 
 // Pega as telas disponíveis
@@ -127,6 +148,8 @@ async function selectSrc(src) {
     // Registrar manipuladores de evento
     mediaRecorder.ondataavailable = handleDataAvailable;
     mediaRecorder.onstop = handleStop;
+
+    sfxBtn.play();
   }catch (error){
     console.error(`Erro "${error.name}" : ${error.message}`);
   }
