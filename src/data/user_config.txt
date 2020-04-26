@@ -1,1 +1,4 @@
-{"som":true,"formato":"avi","minimizar":false}
+{"som":false,"formato":"mp4","minimizar":false}
+
+
+

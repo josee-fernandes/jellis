@@ -35,17 +35,24 @@ readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
   user_config = last_config;
 });
 
-btnAtualizar.addEventListener('click', () => {
+let janela;
+
+const getRefreshedConfig = () => {
   readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
     if(!error){
       let last_config = JSON.parse(data);
       user_config = last_config;
+      selectSrc(janela);
       console.log(user_config);
       return;
     }
   
     console.error(error);
-  });  
+  });
+}
+
+btnAtualizar.addEventListener('click', () => {
+  getRefreshedConfig();
 });
 
 const { dialog, Menu } = remote;
@@ -54,8 +61,6 @@ let mediaRecorder; // Instância do MediaRecorder pra gravar o vídeo
 const recordedChunks = [];
 
 let escolhida = false;
-
-let janela;
 
 const elementsContainer = document.querySelector('.app');
 
@@ -78,7 +83,7 @@ btnStart.addEventListener('click', () => {
   btnStart.classList.add('btn-desabilitar');
   btnStop.classList.remove('btn-desabilitar');
   
-  bemVindo.innerText = `Gravando "${janela}"`;
+  bemVindo.innerText = `Gravando "${janela.name}"`;
 
   logo.classList.add('recording');
 
@@ -98,7 +103,7 @@ btnStop.addEventListener('click', () => {
   btnStop.classList.add('btn-desabilitar');
   btnStart.classList.remove('btn-desabilitar');
 
-  bemVindo.innerText = `Pré-visualizando "${janela}"`;
+  bemVindo.innerText = `Pré-visualizando "${janela.name}"`;
 
   logo.classList.remove('recording');
 
@@ -136,7 +141,6 @@ async function getVideoSources(){
   );
 
   videoOptMenu.popup();
-  
 }
 
 // Muda a tela do vídeo para gravar
@@ -167,6 +171,7 @@ async function selectSrc(src) {
         }
       }
     };
+    console.log('Config do Som True');
   }else{
     constraintsOut = {
       audio : false,
@@ -177,12 +182,14 @@ async function selectSrc(src) {
         }
       }
     };
+
+    console.log('Config do Som False');
   }
 
   // Criar uma stream
   try{
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    const videoOut = await navigator.mediaDevices.getUserMedia(constraintsOut);  
+    const videoOut = await navigator.mediaDevices.getUserMedia(constraintsOut);
 
     // Preview a tela no elemento <video>
     videoElement.srcObject = stream;
@@ -190,13 +197,13 @@ async function selectSrc(src) {
 
     escolhida = true;
 
-    janela = src.name;
+    janela = src;
 
     btnStart.classList.remove('btn-escala');
     btnStop.classList.remove('btn-escala');
 
     bemVindo.classList.add('bem-vindo-posicao');
-    bemVindo.innerText = `Pré-visualizando "${janela}"`
+    bemVindo.innerText = `Pré-visualizando "${janela.name}"`
 
     btnVideoSelect.innerText = 'Trocar janela';
     btnVideoSelect.classList.add('warn');
