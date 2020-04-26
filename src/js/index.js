@@ -18,7 +18,7 @@ const createWindow = () => {
     minHeight: 525,
     title: 'Jellis - Gravador de tela',
     autoHideMenuBar: true,
-    center: true,
+    // center: true,
     backgroundColor: '#201b2b',
     frame: false,
     icon: path.join(__dirname, '../img/icons/ico/64x64.ico')

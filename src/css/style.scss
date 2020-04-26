@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&display=swap');
 
+
 @font-face {
   font-family: 'Bowlby One SC';
   font-style: normal;
@@ -60,7 +61,7 @@ $colors : (
   letter-spacing: .1em;
   transition: .3s ease;
   margin: 5px;
-  
+  z-index: 2;
 
   &:hover{
     transform: scale(1.15);
@@ -129,6 +130,7 @@ $colors : (
       position: absolute;
       left: 5%;
       transition: all .3s ease;
+      user-select: none;
     }
     
     .recording{
@@ -159,8 +161,7 @@ $colors : (
         margin: 10px 5px;
         width: 15px;
         height: 15px;
-        border-radius: 50%;
-        transition: all .3s ease;
+        transition: all .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         cursor: pointer;
         -webkit-app-region: no-drag;
   
@@ -169,7 +170,8 @@ $colors : (
           
           &:hover{
             background-color: lighten(rgb(255, 234, 46), $amount: 12.5);
-            transform: scale(1.2);
+            transform: scale(1.3) rotate(135deg);
+            border-radius: 50%;
           }
         }
   
@@ -178,7 +180,9 @@ $colors : (
   
           &:hover{
             background-color: lighten(rgb(45, 243, 111), $amount: 12.5);
-            transform: scale(1.2);
+            transform: scale(1.3) rotate(135deg);
+
+            border-radius: 50%;
           }
         }
   
@@ -187,7 +191,8 @@ $colors : (
           
           &:hover{
             background-color: lighten(rgb(255, 35, 90), $amount: 12.5);
-            transform: scale(1.2);
+            transform: scale(1.3) rotate(135deg);
+            border-radius: 50%;
           }
         }
       }
@@ -217,7 +222,7 @@ $colors : (
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+        flex-direction: column;        
 
         .bem-vindo{
           width: 50vw;
@@ -265,9 +270,11 @@ $colors : (
       }
     
       .btns{
+        
         button{
           @include btns;
           @include selection('0');
+          
         }
     
         .js-btn-start{
@@ -301,6 +308,7 @@ $colors : (
         @include btns;
         background-color: cor(primary);
         animation: btn-vs-start 4s cubic-bezier(.09,.59,.46,.96);
+        z-index: 1;
 
         &:hover{
           background-color: lighten(cor(primary), $amount: 3);

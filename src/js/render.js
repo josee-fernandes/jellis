@@ -1,4 +1,4 @@
-new Audio('./resrc/sfx/sfx_start.wav').play();
+// new Audio('./resrc/sfx/sfx_start.wav').play();
 
 const { desktopCapturer, remote } = require('electron');
 
@@ -12,48 +12,69 @@ let user_config = {
   minimizar : false
 }
 
-const btnAtualizar = document.querySelector('.js-atualizar');
-
-const configPadrao = () => {
-  writeFile(`./src/data/${fileName}`, JSON.stringify({user_config}), (error) => {
+const setConfig = (who, msg) => {
+  msg = msg || `${fileName} criado.`
+  writeFile(`./src/data/${fileName}`, JSON.stringify(who), (error) => {
     if(error){
       console.error(`Erro ao tentar criar arquivo ${fileName}: ${error}`);
       return;
     }
   
-    console.log(`${fileName} criado.`);
+    console.log(msg);
   });
 }
 
 readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
   if(error+''.includes('no such file or directory')){
-    configPadrao();
+    setConfig(user_config);
     return;
   }
 
   let last_config = JSON.parse(data);
   user_config = last_config;
+  console.warn(user_config);
 });
 
 let janela;
 
-const getRefreshedConfig = () => {
+let repeat = false;
+
+
+const lerArquivo = () => {
   readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
     if(!error){
-      let last_config = JSON.parse(data);
-      user_config = last_config;
-      selectSrc(janela);
-      console.log(user_config);
+      console.warn(user_config);
+      setConfig(user_config, `${fileName} atualizado.`);
+      setTimeout(() => {
+        let last_config = JSON.parse(data);
+        user_config = last_config;
+      }, 100);
+      console.warn(user_config);
+      
+      
+
+      if(janela)
+        selectSrc(janela);
       return;
     }
-  
+    
     console.error(error);
   });
 }
 
-btnAtualizar.addEventListener('click', () => {
-  getRefreshedConfig();
-});
+const getRefreshedConfig = () => {
+  if(!repeat){
+    repeat = !repeat;
+
+    if(0 >= (Date.now() - 20)){
+      lerArquivo();
+    }
+
+    return;
+  }
+  
+  lerArquivo();
+}
 
 const { dialog, Menu } = remote;
 
@@ -68,7 +89,7 @@ const elementsContainer = document.querySelector('.app');
 const logo = document.querySelector('nav h1');
 
 // Efeitos sonoros
-const sfxBtn = new Audio('./resrc/sfx/sfx_btn.wav');
+const sfxBtn = new Audio('./resrc/sfx/sfx_btn2.mp3');
 // const sfxRecord = new Audio('./resrc/sfx/sfx_record.wav');
 // const sfxStopRecord = new Audio('./resrc/sfx/sfx_stop_record.wav');
 

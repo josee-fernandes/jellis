@@ -1,0 +1,211 @@
+$colors : (
+  bg : #201b2b,
+  success: #3ed68f,
+  fail : #d63e71,
+  warning: #fdc752,
+  primary: #8b4dff
+);
+
+@function cor($cor){
+  @return map-get($colors, $cor);
+}
+
+@mixin selection($true){
+  @if($true == '1'){
+    &::selection{
+      background-color: cor(primary);
+    }
+  }@else{
+    &::selection{
+      background-color: transparent;
+    }
+  }
+}
+
+@media (min-width : 600px) {
+  .options-blur{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(black, $alpha: .5);
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    backdrop-filter: blur(3px);
+    transition: opacity .4s ease;
+  }
+  
+  .op-blur-hide{
+    opacity: 0;
+  }
+
+  .op-blur-vis{
+    visibility: hidden;
+  }
+  
+  @keyframes visibility{
+    from{
+      visibility: visible;
+    }
+  
+    to{
+      visibility: hidden;
+    }
+  }
+  
+  .options{
+    width: 75vw;
+    background-color: darken(cor(bg), $amount: 3);
+    padding: 30px 60px;
+    border-radius: 10px;
+    transition: all .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 15px 40px 10px rgba(black, $alpha: .5);
+    transform: scale(1);
+  
+    .close-op{
+      position: relative;
+      float: right;
+      right: 0;
+      width: 15px;
+      height: 15px;
+      background-color: cor(fail);
+      transition: all .4s cubic-bezier(0.68, -0.55, 0.265, 1.55); 
+      cursor: pointer;
+  
+      &:hover{
+        background-color: lighten(cor(fail), $amount: 12.5);
+        transform: scale(1.3) rotate(135deg);
+        border-radius: 50%;
+      }
+    }
+  
+    div{
+      clear: both;
+      height: 100px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      span{
+        color: white;
+        pointer-events: none;
+
+        @include selection(1);
+      }
+  
+      button{
+        width: 90px;
+        height: 30px;
+        background-color: cor(bg);
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all .3s ease;
+  
+        div{
+          position: relative;
+          width: 25px;
+          height: 80%;
+          border-radius: 50%;
+          background-color: cor(fail);
+          transition: all .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          left: 10%;
+        }
+  
+        &:hover{
+          transform: scale(1.1);
+        }
+  
+        &:focus{
+          outline: none;
+        }
+      }
+      
+      .verdadeiro{
+        left: 90%;
+        transform: translateX(-90%);
+        background-color: cor(success);
+      }
+    }
+  }
+  
+  .op-formato{
+    div{
+      button{
+        color: #696969;
+        margin: auto 10px;
+        width: 70px !important;
+        border-radius: 7px;
+        transition: border .3s ease, transform .3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+        &:hover{
+          transform: scale(1) !important;
+          border: 2px solid cor(primary);
+        }
+      }
+      
+      .formato-sel{
+        color: white;
+        background-color: cor(primary);
+        border: 2px solid cor(primary);
+        transform: scale(1.2);
+  
+        &:hover{
+          transform: scale(1.2) !important;
+          // background-color: cor(primary) !important;
+        }
+      }
+    }
+  }
+  
+  .op-closed{
+    transform: scale(0);
+  }
+
+  .js-opcoes{
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    transition: all .7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    cursor: pointer;
+    z-index: 1;
+
+    svg{
+      width: 100%;
+      height: 100%;
+      fill: white;
+      transition: all .3s ease;
+    }
+
+    &:hover{
+      transform: rotate(135deg) scale(1.2);
+    }
+
+    &:focus{
+      outline: none;
+    }
+
+    &:active > svg{
+      fill: cor(primary);
+    }
+  }
+}
+
+@media(min-width : 800px) {
+  
+}
+
+@media(min-width : 960px) {
+  .options{
+    width: 60vw;
+  }
+}
+
+@media(min-width : 1280px) {
+  .options{
+    width: 40vw;
+  }
+}
