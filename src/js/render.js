@@ -258,11 +258,12 @@ async function handleStop(el) {
   }
 
   const { filePath } = await dialog.showSaveDialog({
+    title: 'Selecionar pasta para salvar o vídeo',
     buttonLabel : 'Salvar vídeo',
-    defaultPath : `%USER_NAME%\\Videos\\VID-${Date.now()}.${extensao}`, // se for o codec=h264,vp9,opus usar .webm, se tiver usando só codec=h264, pode usar mp4, avi
+    defaultPath : `C:\\Users\\${process.env.USERNAME}\\Videos\\VID-${Date.now()}.${extensao}`, // se for o codec=h264,vp9,opus usar .webm, se tiver usando só codec=h264, pode usar mp4, avi
     filters : [
       {
-        name : 'Vídeos',
+        name : 'Vídeo',
         extensions: [
           `${extensao}`
         ]
@@ -271,6 +272,13 @@ async function handleStop(el) {
       //   name : 'All Files',
       //   extensions : '*'
       // }
+    ],
+    properties: [
+      'showOverwriteConfirmation',
+      'createDirectory',
+      'openDirectory',
+      'promptToCreate',
+      'createDirectory'
     ]
   });
 
