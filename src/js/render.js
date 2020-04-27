@@ -128,7 +128,9 @@ const logo = document.querySelector('nav h1');
 /**
  * Definição efeitos sonoros
  */
-const sfxBtn = new Audio('./resrc/sfx/sfx_btn2.mp3');
+const sfxBtn = new Audio('./resrc/sfx/sfx_btn_2.mp3');
+const sfxOpen = new Audio('./resrc/sfx/sfx_open.mp3');
+const sfxClose = new Audio('./resrc/sfx/sfx_close.mp3');
 
 /**
  * Botões de iniciar gravação, parar gravação e escolher janela para gravação
@@ -274,6 +276,7 @@ async function selectSrc(src) {
    * Pega os valores do objeto da janela escolhida e atribui na variável de contexto geral (janela)
    * Os botões de gravar e parar de gravar ficam visíveis
    * Ajusta o tamanho do container principal do app para não colidir com a barra de navegação
+   * Verifica o tamanho do nome da janela e caso seja maior que 10 caracteres, usa os 10 primeiros e deixa com reticências no final, indicando a janela que está pré-visualizando
    * Cria o objeto do media recorder e configura as funções para guardar os dados de gravação em recordedChunks
    * E também para parar de guardar os dados após clicar em parar de gravar.
    * Toca o efeito sonoro dos botões
@@ -295,7 +298,15 @@ async function selectSrc(src) {
     btnStop.classList.remove('btn-escala');
 
     bemVindo.classList.add('bem-vindo-posicao');
-    bemVindo.innerText = `Pré-visualizando "${janela.name}"`
+    
+    let exibicao;
+
+    if(janela.name.length > 20){
+      exibicao = `${janela.name.substr(0, 19)} ...`;
+    }else{
+      exibicao = janela.name;
+    }
+    bemVindo.innerText = `Pré-visualizando "${exibicao}"`;
 
     btnVideoSelect.innerText = 'Trocar janela';
     btnVideoSelect.classList.add('warn');

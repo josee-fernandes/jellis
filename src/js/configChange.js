@@ -18,12 +18,12 @@ setTimeout(() => {
   /**
    * Clique do botão de opções
    * Troca o valor da variável de opções para o inverso do valor atribuído
-   * Tom o efeito sonoro dos botões
+   * Toca o efeito sonoro de abrir janela
    * Remove as classes que fazem o menu não aparecer
    */
   btnOpcoes.onclick = e => {
     options = !options;
-    sfxBtn.play();
+    sfxOpen.play();
     if(options){
       opBlur.classList.remove('op-blur-hide');
       opBlur.classList.remove('op-blur-vis');
@@ -41,13 +41,13 @@ setTimeout(() => {
    * Clique do botão de fechar o menu de opções
    * Troca o valor da variável de opções para o inverso do valor atribuído
    * Adiciona as classes que fazem o menu não aparecer
-   * Toca o efeito sonoro dos botões
+   * Toca o efeito sonoro de fechar janela
    * Espera meio segundo para tirar a visibilidade do menu de opções
    * Faz isso para que não interfira nos elementos que possuem uma indexação no eixo z, menor que a do menu de opções
    */
   btnCloseOp.onclick = e => {
     options = !options;
-    sfxBtn.play();
+    sfxClose.play();
     opBlur.classList.add('op-blur-hide');
     opPop.classList.add('op-closed');
     setTimeout(() => {

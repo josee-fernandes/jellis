@@ -132,10 +132,10 @@
     margin: auto 10px;
     width: 70px !important;
     border-radius: 7px;
-    -webkit-transition: border 0.3s ease, -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transition: border 0.3s ease, -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transition: border 0.3s ease, transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transition: border 0.3s ease, transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    -webkit-transition: background-color 0.3s ease, border 0.3s ease, -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: background-color 0.3s ease, border 0.3s ease, -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: background-color 0.3s ease, border 0.3s ease, transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: background-color 0.3s ease, border 0.3s ease, transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
   .op-formato div button:hover {
     -webkit-transform: scale(1) !important;
@@ -158,6 +158,10 @@
             transform: scale(0);
   }
   .js-opcoes {
+    display: block !important;
+    position: fixed;
+    right: 7vw;
+    bottom: 5vh;
     width: 30px;
     height: 30px;
     background-color: transparent;
@@ -186,6 +190,12 @@
   }
 }
 
+@media (min-width: 800px) {
+  .js-opcoes {
+    right: 14vw;
+  }
+}
+
 @media (min-width: 960px) {
   .options {
     width: 60vw;
@@ -195,6 +205,9 @@
 @media (min-width: 1280px) {
   .options {
     width: 40vw;
+  }
+  .js-opcoes {
+    right: 21vw;
   }
 }
 /*# sourceMappingURL=options.css.map */
