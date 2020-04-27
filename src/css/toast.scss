@@ -47,7 +47,7 @@ body{
   
   .msg{
     position: relative;
-    top: 20vh;
+    top: -20vh;
     max-width: 75vw;
     background-color: darken(cor(success), $amount: 3);
     padding: 30px 60px;
@@ -66,7 +66,7 @@ body{
   }
   
   .msg-show{
-   top: -3vh !important; 
+   top: 3vh !important;
   }
 }
 
