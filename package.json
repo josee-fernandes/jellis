@@ -1,7 +1,7 @@
 {
   "name": "jellis",
   "productName": "Jellis",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "icon": "./src/img/icons/ico/32x32.ico",
   "description": "Jellis é um gravador de tela simples. Bom para quem não quer nada complexo e não ter trabalho.",
   "main": "./src/js/index.js",

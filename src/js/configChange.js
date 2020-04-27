@@ -1,5 +1,4 @@
 setTimeout(() => {
-
   let options = true;
 
   const btnOpcoes = document.querySelector('.js-opcoes');
@@ -10,7 +9,7 @@ setTimeout(() => {
   btnOpcoes.onclick = e => {
     options = !options;
     sfxBtn.play();
-    if(!options){  
+    if(!options){
       opBlur.classList.remove('op-blur-hide');
       opBlur.classList.remove('op-blur-vis');
       opPop.classList.remove('op-closed');
@@ -39,21 +38,20 @@ setTimeout(() => {
   const selMinimizar = document.querySelector('.op-minimizar button div');
 
   const refreshSom = (comecando) => {
-    if(!comecando)
+    
+    if(!comecando){
       user_config.som = !user_config.som;
+    }
       
     setTimeout(() => {
       getRefreshedConfig();
-        
       if(user_config.som){
         selSom.classList.add('verdadeiro');
-        console.log(user_config);
+        
         return;
       }
-  
-      console.log(user_config);
       selSom.removeAttribute('class');
-    }, 20);
+    }, 100);
   }
 
   const refreshFormato = (comecando, opcao) => {
@@ -63,11 +61,9 @@ setTimeout(() => {
           user_config.formato = 'mp4';
           setTimeout(() => {
             getRefreshedConfig();
-
             btnFormatos[0].classList.add('formato-sel');
-          btnFormatos[1].removeAttribute('class');
-          btnFormatos[2].removeAttribute('class');
-          console.log(user_config);
+            btnFormatos[1].removeAttribute('class');
+            btnFormatos[2].removeAttribute('class');
           }, 20);
           break;
         case 1:
@@ -77,7 +73,6 @@ setTimeout(() => {
             btnFormatos[0].removeAttribute('class');
             btnFormatos[1].classList.add('formato-sel');
             btnFormatos[2].removeAttribute('class');
-            console.log(user_config);
           }, 20);          
           break;
         case 2:
@@ -87,7 +82,6 @@ setTimeout(() => {
             btnFormatos[0].removeAttribute('class');
             btnFormatos[1].removeAttribute('class');
             btnFormatos[2].classList.add('formato-sel');
-            console.log(user_config);
           }, 20);
           break;
         default:
@@ -114,11 +108,9 @@ setTimeout(() => {
 
       if(user_config.minimizar){
         selMinimizar.classList.add('verdadeiro');
-        console.log(user_config);
         return;
       }
   
-      console.log(user_config);
       selMinimizar.removeAttribute('class');
     }, 20);
   }

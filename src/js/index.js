@@ -9,8 +9,8 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 800,
+    width: 700,
+    height: 700,
     webPreferences:{
       nodeIntegration: true,
     },
@@ -18,7 +18,7 @@ const createWindow = () => {
     minHeight: 525,
     title: 'Jellis - Gravador de tela',
     autoHideMenuBar: true,
-    // center: true,
+    center: true,
     backgroundColor: '#201b2b',
     frame: false,
     icon: path.join(__dirname, '../img/icons/ico/64x64.ico')
@@ -28,7 +28,7 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, '../index.html'));
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished

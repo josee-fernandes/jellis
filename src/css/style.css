@@ -322,7 +322,7 @@
     -webkit-transition: .3s ease;
     transition: .3s ease;
     margin: 5px;
-    z-index: 2;
+    z-index: 1;
   }
   .container .app .btns button:hover {
     -webkit-transform: scale(1.15);
@@ -375,7 +375,7 @@
     -webkit-transition: .3s ease;
     transition: .3s ease;
     margin: 5px;
-    z-index: 2;
+    z-index: 1;
     background-color: #8b4dff;
     -webkit-animation: btn-vs-start 4s cubic-bezier(0.09, 0.59, 0.46, 0.96);
             animation: btn-vs-start 4s cubic-bezier(0.09, 0.59, 0.46, 0.96);

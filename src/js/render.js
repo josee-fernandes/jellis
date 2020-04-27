@@ -13,14 +13,12 @@ let user_config = {
 }
 
 const setConfig = (who, msg) => {
-  msg = msg || `${fileName} criado.`
-  writeFile(`./src/data/${fileName}`, JSON.stringify(who), (error) => {
+  msg = msg || `${fileName} criado.`;
+  writeFile(`${__dirname}/data/${fileName}`, JSON.stringify(who), (error) => {
     if(error){
       console.error(`Erro ao tentar criar arquivo ${fileName}: ${error}`);
       return;
     }
-  
-    console.log(msg);
   });
 }
 
@@ -32,44 +30,30 @@ readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
 
   let last_config = JSON.parse(data);
   user_config = last_config;
-  console.warn(user_config);
 });
 
 let janela;
-
-let repeat = false;
 
 
 const lerArquivo = () => {
   readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
     if(!error){
-      console.warn(user_config);
-      setConfig(user_config, `${fileName} atualizado.`);
-      setTimeout(() => {
-        let last_config = JSON.parse(data);
-        user_config = last_config;
-      }, 100);
-      console.warn(user_config);
-      
-      
-
-      if(janela)
-        selectSrc(janela);
+      setConfig(user_config, `${fileName} atualizado.\n`);
+      if(janela) selectSrc(janela);
       return;
     }
-    
-    console.error(error);
   });
 }
 
+let repeat = false;
+
 const getRefreshedConfig = () => {
   if(!repeat){
-    repeat = !repeat;
-
     if(0 >= (Date.now() - 20)){
       lerArquivo();
     }
 
+    repeat = true;
     return;
   }
   
@@ -203,7 +187,6 @@ async function selectSrc(src) {
         }
       }
     };
-
     console.log('Config do Som False');
   }
 
@@ -262,25 +245,33 @@ async function handleStop(el) {
   switch(user_config.formato){
     case 'mp4':
       extensao = 'mp4';
-      console.log('mp4');
       break;
     case 'avi':
       extensao = 'avi';
-      console.log('avi');
       break;
     case 'webm':
       extensao = 'webm';
-      console.log('webm');
       break;
     default:
       extensao = 'mp4'
-      console.log('mp4 2');
       break;
   }
 
   const { filePath } = await dialog.showSaveDialog({
     buttonLabel : 'Salvar vídeo',
-    defaultPath : `VID-${Date.now()}.${extensao}` // se for o codec=h264,vp9,opus usar .webm, se tiver usando só codec=h264, pode usar mp4, avi
+    defaultPath : `%USER_NAME%\\Videos\\VID-${Date.now()}.${extensao}`, // se for o codec=h264,vp9,opus usar .webm, se tiver usando só codec=h264, pode usar mp4, avi
+    filters : [
+      {
+        name : 'Vídeos',
+        extensions: [
+          `${extensao}`
+        ]
+      },
+      // {
+      //   name : 'All Files',
+      //   extensions : '*'
+      // }
+    ]
   });
 
   if(filePath)
