@@ -1,0 +1,87 @@
+
+$colors : (
+  bg : #201b2b,
+  success: #3ed68f,
+  fail : #d63e71,
+  warning: #fdc752,
+  primary: #8b4dff
+);
+
+@function cor($cor){
+  @return map-get($colors, $cor);
+}
+
+@mixin selection($true){
+  @if($true == '1'){
+    &::selection{
+      background-color: cor(primary);
+    }
+  }@else{
+    &::selection{
+      background-color: transparent;
+    }
+  }
+}
+
+body{
+  overflow: hidden;
+}
+
+@media (min-width : 600px) {
+  .msg-wrapper{
+    position: absolute;
+    width: 100vw;
+    min-height: 100vh;
+    top: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    z-index: 3;
+    transition: opacity .4s ease;
+  }
+
+  .msg-hide{
+    visibility: hidden;
+  }
+  
+  .msg{
+    position: relative;
+    top: 20vh;
+    max-width: 75vw;
+    background-color: darken(cor(success), $amount: 3);
+    padding: 30px 60px;
+    border-radius: 10px;
+    transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 15px 40px 10px rgba(black, $alpha: .5);
+    transform: scale(1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    p{
+      color: white;
+      font-size: 1.3em;
+    }
+  }
+  
+  .msg-show{
+   top: -3vh !important; 
+  }
+}
+
+@media(min-width : 800px) {
+  
+}
+
+@media(min-width : 960px) {
+  .msg{
+    max-width: 60vw;
+  }
+}
+
+@media(min-width : 1280px) {
+  .msg{
+    max-width: 40vw;
+  }
+}

@@ -1,1 +1,1 @@
-{"som":true,"formato":"mp4","minimizar":false}
+{"som":false,"formato":"mp4","minimizar":false}

@@ -387,6 +387,10 @@ async function handleStop(el) {
     ]
   });
 
+  /**
+   * Mostra um toast com uma mensagem dizendo que o vídeo foi salvo
+   */
+
   if(filePath)
-    writeFile(filePath, buffer, () => console.log('Vídeo salvo com sucesso!'));
+    writeFile(filePath, buffer, () => showToast('Vídeo salvo com sucesso!'));
 }
