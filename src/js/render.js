@@ -43,7 +43,7 @@ const setConfig = (who, msg) => {
  * Caso o arquivo não exista, ele cria um com as configurações padrão que já vem atribuido ná variável user_config
  * Usado apenas ao abrir o app, para configuração inicial.
  */
-readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
+readFile(`${__dirname}/data/${fileName}`, 'utf-8', (error, data) => {
   if(error+''.includes('no such file or directory')){
     setConfig(user_config);
     return;
@@ -62,7 +62,7 @@ let janela;
  * Lê as configurações do usuário e atualiza os dados na sessão de uso atual
  */
 const lerArquivo = () => {
-  readFile(`./src/data/${fileName}`, 'utf-8', (error, data) => {
+  readFile(`${__dirname}/data/${fileName}`, 'utf-8', (error, data) => {
     if(!error){
       setConfig(user_config, `${fileName} atualizado.\n`);
       if(janela) selectSrc(janela);
@@ -128,9 +128,9 @@ const logo = document.querySelector('nav h1');
 /**
  * Definição efeitos sonoros
  */
-const sfxBtn = new Audio('./resrc/sfx/sfx_btn_2.mp3');
-const sfxOpen = new Audio('./resrc/sfx/sfx_open.mp3');
-const sfxClose = new Audio('./resrc/sfx/sfx_close.mp3');
+const sfxBtn = new Audio(`${__dirname}/resrc/sfx/sfx_btn_2.mp3`);
+const sfxOpen = new Audio(`${__dirname}/resrc/sfx/sfx_open.mp3`);
+const sfxClose = new Audio(`${__dirname}/resrc/sfx/sfx_close.mp3`);
 
 /**
  * Botões de iniciar gravação, parar gravação e escolher janela para gravação
@@ -390,7 +390,6 @@ async function handleStop(el) {
   /**
    * Mostra um toast com uma mensagem dizendo que o vídeo foi salvo
    */
-
   if(filePath)
     writeFile(filePath, buffer, () => showToast('Vídeo salvo com sucesso!'));
 }
