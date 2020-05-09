@@ -13,4 +13,8 @@ Sem link para download no momento.😕
 * Tema light.
 
 
+## 📜 Licença
+MIT.
+
+
 Criado com 💜 por [José Fernandes](https://github.com/devJoseVitor/) 🚀.
